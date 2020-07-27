@@ -3,10 +3,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// Mirage.js
-import Server from './server'
-Server
-
 import '@/assets/css/main.css'
 
 Vue.config.productionTip = false
