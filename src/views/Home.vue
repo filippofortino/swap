@@ -1,30 +1,17 @@
 <template>
-  <div class="home">
-    <Header />
-    <div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6">
-      <div
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:border-b-2 sm:border-gray-100"
-      >
-        <Breadcrumbs />
-        <ViewPicker />
-      </div>
-      <FileContainer />
-    </div>
-  </div>
+  <MainLayout>
+    <FileContainer />
+  </MainLayout>
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Breadcrumbs from '@/components/Breadcrumbs'
-import ViewPicker from '@/components/ViewPicker'
+import MainLayout from '@/layouts/MainLayout'
 import FileContainer from '@/components/FileContainer'
 
 export default {
   name: 'Home',
   components: {
-    Header,
-    Breadcrumbs,
-    ViewPicker,
+    MainLayout,
     FileContainer,
   },
 }
