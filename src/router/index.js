@@ -10,6 +10,10 @@ const routes = [
     name: 'Home',
     component: Home,
   },
+  {
+    path: '/folder/:uuid',
+    component: Home,
+  },
   // {
   //   path: '/about',
   //   name: 'About',

@@ -1,5 +1,6 @@
 <template>
-  <div
+  <router-link
+    :to="`/folder/${folder.uuid}`"
     class="rounded-md shadow-sm border border-gray-300 overflow-hidden focus:outline-none focus:shadow-outline-indigo select-none"
   >
     <div class="p-3 bg-white sm:p-4">
@@ -16,7 +17,7 @@
         </span>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
