@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="flex flex-col min-h-screen">
     <Header />
-    <div class="max-w-7xl mx-auto px-4 space-y-6 sm:px-6">
+    <div class="flex-auto max-w-7xl w-full mx-auto px-4 pb-20 space-y-6 sm:px-6">
       <div
         class="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:border-b-2 sm:border-gray-100"
       >
@@ -11,13 +11,15 @@
 
       <slot />
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header'
-import Breadcrumbs from '@/components/Breadcrumbs'
+import Footer from '@/components/Footer'
 import ViewPicker from '@/components/ViewPicker'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export default {
   name: 'MainLayout',
@@ -25,6 +27,7 @@ export default {
     Header,
     Breadcrumbs,
     ViewPicker,
+    Footer,
   },
 }
 </script>
