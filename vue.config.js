@@ -1,5 +1,5 @@
-// module.exports = {
-//   devServer: {
-//     host: '127.0.0.1',
-//   },
-// }
+module.exports = {
+  devServer: {
+    host: 'app.swap.test',
+  },
+}
