@@ -1,18 +1,18 @@
 <template>
   <MainLayout>
-    <FileContainer />
+    <ItemContainer />
   </MainLayout>
 </template>
 
 <script>
 import MainLayout from '@/layouts/MainLayout'
-import FileContainer from '@/components/FileContainer'
+import ItemContainer from '@/components/ItemContainer'
 
 export default {
   name: 'Home',
   components: {
     MainLayout,
-    FileContainer,
+    ItemContainer,
   },
 }
 </script>
