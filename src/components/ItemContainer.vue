@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-7">
+  <div>
     <div v-if="loading" class="py-6">
       <svg
         class="animate-spin-bezier h-10 w-10 mx-auto text-indigo-600"
@@ -40,7 +40,7 @@
       >
     </div>
 
-    <div v-else-if="folders.length || files.length">
+    <div v-else-if="folders.length || files.length" class="space-y-7">
       <div v-if="folders.length" class="space-y-3">
         <span class="ml-3 text-sm font-semibold text-gray-500">Folders</span>
         <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
@@ -111,8 +111,10 @@ export default {
         const items = await axios.get(`https://api.swap.test/folders/${folder}`)
         this.files = items.data.folder.files
         this.folders = items.data.folder.folders
-        // this.items = items.data.items
+
         this.$store.commit('updateBreadcrumbs', items.data.breadcrumbs)
+        document.title =
+          items.data.folder.id !== 1 ? `${items.data.folder.name} | Swap` : 'Home | Swap'
       } catch (e) {
         console.error(e)
         this.error = true

@@ -1,5 +1,6 @@
 <template>
-  <div class="py-4">
+  <!-- <div class="py-4 md:max-w-2xl lg:max-w-4xl xl:max-w-5xl"> -->
+  <div class="py-4 w-5/6">
     <div v-if="breadcrumbs">
       <div class="flex items-center space-x-1 md:hidden">
         <svg
@@ -22,7 +23,7 @@
       </div>
 
       <div class="hidden md:flex items-center">
-        <div class="flex items-center flex-shrink-0 space-x-1">
+        <div class="flex items-center space-x-1 flex-shrink">
           <router-link
             to="/"
             class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
@@ -42,20 +43,22 @@
           </svg>
         </div>
         <div
-          class="flex items-center flex-shrink-0 space-x-1"
+          class="flex items-center space-x-1 overflow-auto"
           v-for="(folder, index) in breadcrumbs.slice(1)"
           :key="folder.id"
         >
           <router-link
             v-if="index !== breadcrumbs.slice(1).length - 1"
             :to="`/folder/${folder.uuid}`"
-            class="px-2 py-1 flex-shrink-0 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
+            class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
+            :title="folder.name"
           >
             {{ folder.name }}
           </router-link>
           <span
             v-else
-            class="px-2 py-1 flex-shrink-0 rounded leading-tight tracking-wide text-gray-500 font-semibold"
+            class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold"
+            :title="folder.name"
           >
             {{ folder.name }}
           </span>
