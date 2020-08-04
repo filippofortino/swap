@@ -3,7 +3,7 @@
     <Header />
     <div class="flex-auto max-w-7xl w-full mx-auto px-4 pb-20 space-y-6 sm:px-6">
       <div
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-center sm:border-b-2 sm:border-gray-100"
+        class="flex flex-col sm:py-2 sm:flex-row sm:justify-between sm:items-center sm:border-b-2 sm:border-gray-100"
       >
         <Breadcrumbs />
         <ViewPicker />

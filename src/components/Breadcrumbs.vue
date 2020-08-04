@@ -1,6 +1,6 @@
 <template>
   <!-- <div class="py-4 md:max-w-2xl lg:max-w-4xl xl:max-w-5xl"> -->
-  <div class="py-4 w-5/6">
+  <div class="py-4 sm:w-5/6 sm:py-0">
     <div v-if="breadcrumbs">
       <!-- {{ formattedBreadcrumbs }} -->
       <!-- If not in "Home" -->
@@ -19,7 +19,7 @@
         </svg>
         <router-link
           :to="getPreviousFolderPath()"
-          class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
+          class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
         >
           Back
         </router-link>
@@ -30,7 +30,7 @@
         <div class="flex items-center flex-shrink">
           <router-link
             to="/"
-            class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
+            class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
             title="Home"
           >
             Home
@@ -48,36 +48,54 @@
           </svg>
         </div>
         <div
-          class="flex items-center overflow-auto"
-          :class="{ 'flex-shrink-0': Array.isArray(folder) }"
+          class="flex items-center"
+          :class="{
+            'flex-shrink-0': Array.isArray(folder),
+            'overflow-auto': !Array.isArray(folder),
+          }"
           v-for="(folder, index) in formattedBreadcrumbs"
           :key="folder.id"
         >
-          <!-- TODO: Rended a dropdown when breadcrumbs are collapsed -->
-          <span
-            v-if="Array.isArray(folder)"
-            :to="`/folder/${folder.uuid}`"
-            class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
-          >
-            <svg
-              class="h-5 w-5 text-gray-500"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <!-- Render a dropdown when breadcrumbs are collapsed -->
+          <Dropdown v-if="Array.isArray(folder)">
+            <button
+              slot="trigger"
+              slot-scope="{ open }"
+              type="button"
+              id="options-menu"
+              aria-haspopup="true"
+              :aria-expanded="open"
+              class="px-2 py-0.5 mx-0.5 mt-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
             >
-              <path
-                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-              ></path>
-            </svg>
-          </span>
+              <svg
+                class="h-6 w-6 text-gray-500"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                ></path>
+              </svg>
+            </button>
+
+            <DropdownItem
+              v-for="dFolder in folder"
+              :key="dFolder.id"
+              :to="`/folder/${dFolder.uuid}`"
+              :title="dFolder.name"
+            >
+              {{ dFolder.name }}
+            </DropdownItem>
+          </Dropdown>
 
           <router-link
             v-else-if="!isLastItemOfArray(index, formattedBreadcrumbs)"
             :to="`/folder/${folder.uuid}`"
-            class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200"
+            class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
             :title="folder.name"
           >
             {{ folder.name }}
@@ -119,8 +137,15 @@
 </template>
 
 <script>
+import Dropdown from '@/components/dropdown/Dropdown'
+import DropdownItem from '@/components/dropdown/DropdownItem'
+
 export default {
   name: 'Breadcrumbs',
+  components: {
+    Dropdown,
+    DropdownItem,
+  },
   computed: {
     breadcrumbs() {
       return this.$store.state.breadcrumbs
