@@ -12,6 +12,8 @@
       <slot />
     </div>
     <Footer />
+
+    <NewItemContainer />
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ViewPicker from '@/components/ViewPicker'
 import Breadcrumbs from '@/components/Breadcrumbs'
+import NewItemContainer from '@/components/new-item/NewItemContainer'
 
 export default {
   name: 'MainLayout',
@@ -28,6 +31,7 @@ export default {
     Breadcrumbs,
     ViewPicker,
     Footer,
+    NewItemContainer,
   },
 }
 </script>
