@@ -107,8 +107,10 @@ export default {
     async getItems() {
       try {
         this.loading = true
+
         let folder = this.$route.params.uuid || 'root'
         const items = await axios.get(`https://api.swap.test/folders/${folder}`)
+
         this.files = items.data.folder.files
         this.folders = items.data.folder.folders
 

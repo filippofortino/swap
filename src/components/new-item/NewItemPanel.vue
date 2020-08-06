@@ -51,9 +51,9 @@
               </button>
             </div>
             <div class="space-y-8">
-              <NewItemSelectAction v-if="!action" @select-action="action = $event" />
-              <NewItemUploadForm v-else-if="action === 'upload'" />
+              <NewItemUploadForm v-if="action === 'upload'" />
               <NewItemCreateFolderForm v-else-if="action === 'new-folder'" />
+              <NewItemSelectAction v-else @select-action="action = $event" />
             </div>
           </div>
         </div>
