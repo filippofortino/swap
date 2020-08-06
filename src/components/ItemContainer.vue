@@ -112,7 +112,9 @@ export default {
         this.files = items.data.folder.files
         this.folders = items.data.folder.folders
 
+        this.$store.commit('updateCurrentFolder', items.data.folder)
         this.$store.commit('updateBreadcrumbs', items.data.breadcrumbs)
+
         document.title =
           items.data.folder.id !== 1 ? `${items.data.folder.name} | Swap` : 'Home | Swap'
       } catch (e) {

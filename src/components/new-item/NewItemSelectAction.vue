@@ -2,7 +2,7 @@
   <div class="flex flex-col space-y-4">
     <div class="inline-flex rounded-md shadow">
       <button
-        @click="$emit('select:action', 'upload')"
+        @click="$emit('select-action', 'upload')"
         class="w-full inline-flex items-center justify-center space-x-3 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
       >
         <svg
@@ -21,7 +21,7 @@
     </div>
     <div class="inline-flex">
       <button
-        @click="$emit('select:action', 'new-folder')"
+        @click="$emit('select-action', 'new-folder')"
         class="w-full inline-flex items-center justify-center space-x-3 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline-indigo focus:border-indigo-300 transition duration-150 ease-in-out"
       >
         <svg

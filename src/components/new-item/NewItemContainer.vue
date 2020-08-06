@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NewItemButton v-show="showButton && !isPanelOpen" @open:button="isPanelOpen = true" />
+    <NewItemButton v-show="showButton && !isPanelOpen" @open-button="isPanelOpen = true" />
 
     <!-- Overlay -->
     <transition
@@ -20,7 +20,7 @@
       </div>
     </transition>
 
-    <NewItemPanel v-show="isPanelOpen" @close:panel="isPanelOpen = false" />
+    <NewItemPanel v-show="isPanelOpen" @close-panel="isPanelOpen = false" />
   </div>
 </template>
 

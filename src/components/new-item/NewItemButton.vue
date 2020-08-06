@@ -8,7 +8,7 @@
     leave-to-class="transform opacity-0 scale-50"
   >
     <button
-      @click="$emit('open:button')"
+      @click="$emit('open-button')"
       class="fixed bottom-8 right-5 md:right-8 rounded-full bg-indigo-600 shadow-lg hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
     >
       <div class="flex items-center p-3 space-x-3 text-white rounded-full shadow-xs md:p-4">
