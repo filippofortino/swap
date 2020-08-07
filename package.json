@@ -29,6 +29,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
     "vue-clickaway": "^2.2.2",
+    "vue-smooth-reflow": "^0.1.12",
     "vue-template-compiler": "^2.6.11"
   }
 }
