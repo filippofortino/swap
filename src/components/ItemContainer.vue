@@ -36,7 +36,7 @@
         </g>
       </svg>
       <span class="text-sm sm:text-base leading-6 text-gray-400 text-center"
-        >Oh no! Something went wrong! You could try reload the page</span
+        >Oh no! Something went wrong! You could try to reload the page</span
       >
     </div>
 
@@ -93,11 +93,17 @@ export default {
   name: 'ItemContainer',
   data() {
     return {
-      files: [],
-      folders: [],
       loading: false,
       error: false,
     }
+  },
+  computed: {
+    files() {
+      return this.$store.state.items.folder.files
+    },
+    folders() {
+      return this.$store.state.items.folder.folders
+    },
   },
   components: {
     FileItem,
@@ -111,11 +117,7 @@ export default {
         let folder = this.$route.params.uuid || 'root'
         const items = await axios.get(`https://api.swap.test/folders/${folder}`)
 
-        this.files = items.data.folder.files
-        this.folders = items.data.folder.folders
-
-        this.$store.commit('updateCurrentFolder', items.data.folder)
-        this.$store.commit('updateBreadcrumbs', items.data.breadcrumbs)
+        this.$store.commit('updateItems', items.data)
 
         document.title =
           items.data.folder.id !== 1 ? `${items.data.folder.name} | Swap` : 'Home | Swap'

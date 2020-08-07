@@ -1,6 +1,9 @@
 <template>
   <div>
-    <NewItemButton v-show="showButton && !isPanelOpen" @open-button="isPanelOpen = true" />
+    <NewItemButton
+      v-show="showButton && !isPanelOpen && currentFolder"
+      @open-button="isPanelOpen = true"
+    />
 
     <!-- Overlay -->
     <transition
@@ -29,7 +32,7 @@ import NewItemButton from './NewItemButton'
 import NewItemPanel from './NewItemPanel'
 
 export default {
-  name: 'NewItem',
+  name: 'NewItemContainer',
   components: {
     NewItemButton,
     NewItemPanel,
@@ -40,6 +43,11 @@ export default {
       showButton: true,
       lastScrollPosition: 0,
     }
+  },
+  computed: {
+    currentFolder() {
+      return this.$store.state.items.folder
+    },
   },
   methods: {
     onScroll() {

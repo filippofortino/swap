@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     currentFolder() {
-      return this.$store.state.currentFolder
+      return this.$store.state.items.folder
     },
     isButtonDisabled() {
       // return this.folderName < 1

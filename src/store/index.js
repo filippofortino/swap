@@ -5,15 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentFolder: null,
-    breadcrumbs: null,
+    items: {
+      folder: null,
+      files: [],
+      folders: [],
+      breadcrumbs: null,
+    },
   },
   mutations: {
-    updateBreadcrumbs(state, newBreadcrumbs) {
-      state.breadcrumbs = newBreadcrumbs
-    },
-    updateCurrentFolder(state, folder) {
-      state.currentFolder = folder
+    updateItems(state, items) {
+      state.items = items
     },
   },
   actions: {},

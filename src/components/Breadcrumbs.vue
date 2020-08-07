@@ -148,7 +148,7 @@ export default {
   },
   computed: {
     breadcrumbs() {
-      return this.$store.state.breadcrumbs
+      return this.$store.state.items.breadcrumbs
     },
     previousFolder() {
       return this.breadcrumbs.slice(this.breadcrumbs.length - 2, this.breadcrumbs.length - 1)[0]
