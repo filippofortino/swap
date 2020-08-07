@@ -52,7 +52,7 @@
             </div>
             <div class="space-y-8">
               <NewItemUploadForm v-if="action === 'upload'" />
-              <NewItemCreateFolderForm v-else-if="action === 'new-folder'" />
+              <NewItemCreateFolderForm v-else-if="action === 'new-folder'" v-on="$listeners" />
               <NewItemSelectAction v-else @select-action="action = $event" />
             </div>
           </div>
