@@ -47,7 +47,7 @@
               </div>
               <input
                 id="search"
-                class="form-input block w-full pl-11 pr-12 sm:text-sm sm:leading-5"
+                class="form-input block w-full pl-11 sm:text-sm sm:leading-5"
                 placeholder="Search in Swap"
               />
             </div>
@@ -133,7 +133,7 @@
                     </div>
                     <input
                       id="search"
-                      class="form-input block w-full pl-11 pr-12 sm:text-sm sm:leading-5"
+                      class="form-input block w-full pl-11 sm:text-sm sm:leading-5"
                       placeholder="Search in Swap"
                     />
                   </div>
