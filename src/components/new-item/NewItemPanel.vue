@@ -15,7 +15,7 @@
               <div class="flex items-center space-x-2">
                 <button
                   v-show="action"
-                  @click="action = null"
+                  @click="action = 'select'"
                   type="button"
                   class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                 >
@@ -61,15 +61,12 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <component
-                  ref="nonloso"
+                  ref="content"
                   :is="actionToComponent"
                   @select-action="action = $event"
                   v-on="$listeners"
                 />
               </transition>
-              <!-- <NewItemUploadForm v-if="action === 'upload'" />
-              <NewItemCreateFolderForm v-else-if="action === 'new-folder'" v-on="$listeners" />
-              <NewItemSelectAction v-else @select-action="action = $event" /> -->
             </div>
           </div>
         </div>
@@ -119,7 +116,7 @@ export default {
     this.$smoothReflow({
       el: this.$refs.parent,
       transitionEvent: {
-        el: this.$refs.nonloso,
+        el: this.$refs.content,
       },
     })
   },

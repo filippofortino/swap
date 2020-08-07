@@ -1,4 +1,3 @@
-/* eslint-disable */
 <template>
   <div class="space-y-6">
     <p class="text-center text-base leading-6 font-medium text-gray-500">
@@ -120,16 +119,19 @@ export default {
       this.loading = true
 
       try {
-        await axios.post('https://api.swap.test/folders', {
+        const folder = await axios.post('https://api.swap.test/folders', {
           parent_folder: this.currentFolder.id,
           name: this.folderName,
         })
 
+        this.$store.commit('appendNewFolder', folder.data)
+
         this.$emit('close-panel')
       } catch (e) {
+        console.log(e)
         // If it's a validation error get the error message from the server
         if (e.response.status === 422) this.errorMessage = e.response.data.errors.name[0]
-        // Else just show a generic error message
+        // // Else just show a generic error message
         else this.genericErrorHappened = true
       } finally {
         this.loading = false

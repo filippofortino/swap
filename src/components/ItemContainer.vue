@@ -43,9 +43,25 @@
     <div v-else-if="folders.length || files.length" class="space-y-7">
       <div v-if="folders.length" class="space-y-3">
         <span class="ml-3 text-sm font-semibold text-gray-500">Folders</span>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
-          <FolderItem v-for="folder in folders" :key="folder.id" :folder="folder" />
-        </div>
+        <!-- <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"> -->
+        <transition-group
+          enter-active-class="transition ease-out duration-500"
+          enter-class="transform opacity-0 scale-95"
+          enter-to-class="transform opacity-100 scale-100"
+          leave-active-class="transition ease-in duration-500"
+          leave-class="transform opacity-100 scale-100"
+          leave-to-class="transform opacity-0 scale-95"
+          tag="div"
+          class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+        >
+          <FolderItem
+            class="transition-all duration-500"
+            v-for="folder in folders"
+            :key="folder.id"
+            :folder="folder"
+          />
+        </transition-group>
+        <!-- </div> -->
       </div>
       <div v-if="files.length" class="space-y-3">
         <span class="ml-3 text-sm font-semibold text-gray-500">Files</span>
@@ -140,3 +156,19 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>
