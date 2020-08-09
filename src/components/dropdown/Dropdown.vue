@@ -15,7 +15,7 @@
       <div
         v-show="open"
         @keydown.esc="open = false"
-        class="origin-top-right absolute mt-2 w-56 rounded-md shadow-lg"
+        class="origin-top-right absolute mt-2 w-64 rounded-md shadow-lg"
       >
         <div class="rounded-md bg-white shadow-xs">
           <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
