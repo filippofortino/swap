@@ -10,7 +10,7 @@
     <div class="fixed bottom-0 right-0 w-full md:w-96 md:bottom-8 md:right-8">
       <div class="rounded-t-lg shadow-lg md:rounded-lg">
         <div class="rounded-t-lg shadow-xs bg-white md:rounded-lg">
-          <div ref="parent" class="pt-6 pb-8 px-5 space-y-6">
+          <div class="pt-6 pb-8 px-5 space-y-6">
             <div class="flex justify-between items-center">
               <div class="flex items-center space-x-2">
                 <button
@@ -61,7 +61,6 @@
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <component
-                  ref="content"
                   :is="actionToComponent"
                   @select-action="action = $event"
                   v-on="$listeners"
@@ -80,11 +79,9 @@ import NewItemSelectAction from './NewItemSelectAction.vue'
 import NewItemUploadForm from './NewItemUploadForm'
 import NewItemCreateFolderForm from './NewItemCreateFolderForm'
 
-import smoothReflow from 'vue-smooth-reflow'
 
 export default {
   name: 'NewItemPanel',
-  mixins: [smoothReflow],
   data() {
     return {
       action: null,
@@ -111,14 +108,6 @@ export default {
           return 'NewItemSelectAction'
       }
     },
-  },
-  mounted() {
-    this.$smoothReflow({
-      el: this.$refs.parent,
-      transitionEvent: {
-        el: this.$refs.content,
-      },
-    })
   },
 }
 </script>
