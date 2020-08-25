@@ -65,9 +65,18 @@
       </div>
       <div v-if="files.length" class="space-y-3">
         <span class="ml-3 text-sm font-semibold text-gray-500">Files</span>
-        <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
+        <transition-group
+          enter-active-class="transition ease-out duration-500"
+          enter-class="transform opacity-0 scale-95"
+          enter-to-class="transform opacity-100 scale-100"
+          leave-active-class="transition ease-in duration-500"
+          leave-class="transform opacity-100 scale-100"
+          leave-to-class="transform opacity-0 scale-95"
+          tag="div"
+          class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
+        >
           <FileItem v-for="file in files" :key="file.id" :file="file" />
-        </div>
+        </transition-group>
       </div>
     </div>
 
