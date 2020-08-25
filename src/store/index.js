@@ -23,6 +23,14 @@ export default new Vuex.Store({
     appendNewFile(state, newFile) {
       state.items.folder.files = state.items.folder.files.concat(newFile)
     },
+    revertUploadedFile(state, filepondId) {
+      if (filepondId) {
+        state.items.folder.files.splice(
+          state.items.folder.files.findIndex(file => file.filepondId === filepondId),
+          1
+        )
+      }
+    },
   },
   actions: {},
   modules: {},

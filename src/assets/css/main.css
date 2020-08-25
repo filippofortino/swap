@@ -4,3 +4,7 @@
 /* purgecss end ignore */
 
 @tailwind utilities;
+
+.filepond--root {
+  @apply max-h-72;
+}
