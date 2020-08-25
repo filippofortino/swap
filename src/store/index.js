@@ -20,6 +20,9 @@ export default new Vuex.Store({
     appendNewFolder(state, newFolder) {
       state.items.folder.folders = state.items.folder.folders.concat(newFolder)
     },
+    appendNewFile(state, newFile) {
+      state.items.folder.files = state.items.folder.files.concat(newFile)
+    },
   },
   actions: {},
   modules: {},

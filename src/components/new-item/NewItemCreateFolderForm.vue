@@ -123,7 +123,6 @@ export default {
           parent_folder: this.currentFolder.id,
           name: this.folderName,
         })
-
         this.$store.commit('appendNewFolder', folder.data)
 
         this.$emit('close-panel')

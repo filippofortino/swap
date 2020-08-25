@@ -1,31 +1,80 @@
 <template>
   <div class="space-y-6">
     <p class="text-center text-base leading-6 font-medium text-gray-500">
-      Upload a file in <span class="font-semibold">"Home"</span>
+      Upload a file in <span class="font-semibold">"{{ currentFolder.name }}"</span>
     </p>
-    <div class="flex rounded-md shadow">
-      <button
-        class="w-full inline-flex items-center justify-center space-x-3 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
-      >
-        <svg
-          class="h-6 w-6 text-white"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-        </svg>
-        <span>Click to upload</span>
-      </button>
-    </div>
+    <FilePond
+      ref="pond"
+      allow-multiple="true"
+      @addfile="attachParentFolderMetadata"
+      @processfile="appendFileToList"
+      :server="{
+        url: 'https://api.swap.test/files',
+        process: {
+          onload: getServerResponse,
+        },
+        revert: '/revert',
+      }"
+    />
   </div>
 </template>
 
 <script>
+import vueFilePond from 'vue-filepond'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js'
+
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
+
+const FilePond = vueFilePond(FilePondPluginImagePreview)
+
 export default {
   name: 'NewItemUploadForm',
+  data() {
+    return {
+      fileQueue: [],
+    }
+  },
+  computed: {
+    currentFolder() {
+      return this.$store.state.items.folder
+    },
+  },
+  methods: {
+    /**
+     * Attach the parent folder id to the file when uploading
+     * to place the file in the correct folder in the backend.
+     */
+    attachParentFolderMetadata(error, file) {
+      file.setMetadata('parent_folder', this.currentFolder.id)
+    },
+    /**
+     * Update the file list and show newly uploaded files.
+     */
+    appendFileToList(error, uploadedFile) {
+      // Get the uploaded file from the queue and append to DOM
+      let fileToAppend = this.fileQueue.find(file => {
+        return file.uuid === uploadedFile.serverId
+      })
+
+      this.$store.commit('appendNewFile', fileToAppend)
+    },
+    /**
+     * Get the uploaded file data and extract filepond serverId.
+     */
+    getServerResponse(data) {
+      let file = JSON.parse(data)
+
+      // Send the file to the queue to get appended
+      // when upload is complete
+      this.fileQueue.push(file)
+
+      // Return what filepond will use as serverId
+      return file.uuid
+    },
+  },
+  components: {
+    FilePond,
+  },
 }
 </script>
