@@ -2,7 +2,6 @@
   <!-- <div class="py-4 md:max-w-2xl lg:max-w-4xl xl:max-w-5xl"> -->
   <div class="py-4 sm:w-5/6 sm:py-0">
     <div v-if="breadcrumbs">
-      <!-- {{ formattedBreadcrumbs }} -->
       <!-- If not in "Home" -->
       <div class="flex items-center space-x-1 md:hidden">
         <!-- Show only back button on mobile -->
@@ -18,7 +17,7 @@
           <path d="M15 19l-7-7 7-7"></path>
         </svg>
         <router-link
-          :to="getPreviousFolderPath()"
+          :to="previousFolderPath"
           class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
         >
           Back
@@ -27,26 +26,6 @@
 
       <div class="hidden md:flex items-center">
         <!-- Show full breadcrumbs on desktop -->
-        <div class="flex items-center flex-shrink">
-          <router-link
-            to="/"
-            class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
-            title="Home"
-          >
-            Home
-          </router-link>
-          <svg
-            class="h-4 w-4 flex-shrink-0 text-gray-400"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M9 5l7 7-7 7"></path>
-          </svg>
-        </div>
         <div
           class="flex items-center"
           :class="{
@@ -103,9 +82,10 @@
             </DropdownItem>
           </Dropdown>
 
+          <!-- Just the regular breadcrumbs element if not a dropdown nor the last item -->
           <router-link
             v-else-if="!isLastItemOfArray(index, formattedBreadcrumbs)"
-            :to="`/folder/${folder.uuid}`"
+            :to="getFormattedFolderPath(folder)"
             class="px-2 py-1 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
             :title="folder.name"
           >
@@ -137,11 +117,12 @@
       </div>
     </div>
     <div v-else class="flex">
+      <!-- If there is no breadcrumbs currentFolder must be the root folder -->
       <span
         class="px-2 py-1 rounded leading-tight tracking-wide text-gray-500 font-semibold"
         title="Home"
       >
-        Home
+        {{ currentFolderName }}
       </span>
     </div>
   </div>
@@ -158,31 +139,45 @@ export default {
     DropdownItem,
   },
   computed: {
+    currentFolderName() {
+      return this.$store.state.items.folder.name
+    },
     breadcrumbs() {
       return this.$store.state.items.breadcrumbs
     },
-    previousFolder() {
-      return this.breadcrumbs.slice(this.breadcrumbs.length - 2, this.breadcrumbs.length - 1)[0]
+    previousFolderPath() {
+      return this.getFormattedFolderPath(
+        this.breadcrumbs.slice(this.breadcrumbs.length - 2, this.breadcrumbs.length - 1)[0]
+      )
     },
     formattedBreadcrumbs() {
-      const sliced = this.breadcrumbs.slice(1)
+      const breadcrumbs = this.breadcrumbs
+
       /**
        * If items in breadcrumbs are five or more
        * collapse the breadcrumbs and create an array
        * of the middle folders to be displayed as a
        * dropdown.
        */
-      if (this.breadcrumbs.length >= 5) {
-        let dropdown = sliced.slice(0, sliced.length - 2)
-        return [dropdown, sliced[sliced.length - 2], sliced[sliced.length - 1]]
+      if (breadcrumbs.length >= 5) {
+        let dropdown = breadcrumbs.slice(1, breadcrumbs.length - 2)
+        return [
+          breadcrumbs[0],
+          dropdown,
+          breadcrumbs[breadcrumbs.length - 2],
+          breadcrumbs[breadcrumbs.length - 1],
+        ]
       }
 
-      return sliced
+      return breadcrumbs
     },
   },
   methods: {
-    getPreviousFolderPath() {
-      return this.previousFolder.id === 1 ? '/' : `/folder/${this.previousFolder.uuid}`
+    /**
+     * Return '/' instead of full uuid path if 'folder' is the roor folder
+     */
+    getFormattedFolderPath(folder) {
+      return folder.id === 1 ? '/' : `/folder/${folder.uuid}`
     },
     isLastItemOfArray(index, array) {
       return index === array.length - 1
