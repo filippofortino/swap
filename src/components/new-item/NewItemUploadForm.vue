@@ -66,7 +66,6 @@ export default {
       this.$store.commit('appendNewFile', fileToAppend)
     },
     removeFileFromList(error, file) {
-      console.log(file)
       this.$store.commit('revertUploadedFile', file.id)
     },
     /**

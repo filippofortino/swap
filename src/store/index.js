@@ -24,11 +24,10 @@ export default new Vuex.Store({
       state.items.folder.files = state.items.folder.files.concat(newFile)
     },
     revertUploadedFile(state, filepondId) {
-      if (filepondId) {
-        state.items.folder.files.splice(
-          state.items.folder.files.findIndex(file => file.filepondId === filepondId),
-          1
-        )
+      let foundIndex = state.items.folder.files.findIndex(file => file.filepondId === filepondId)
+      // If the element actually exists in the arrayk
+      if (foundIndex > -1) {
+        state.items.folder.files.splice(foundIndex, 1)
       }
     },
   },
