@@ -2,6 +2,7 @@
   <router-link
     :to="`/folder/${folder.uuid}`"
     class="rounded-md shadow-sm border border-gray-300 overflow-hidden focus:outline-none focus:shadow-outline-indigo select-none"
+    :title="folder.name"
   >
     <div class="p-3 bg-white sm:p-4">
       <div class="flex items-center space-x-2">
