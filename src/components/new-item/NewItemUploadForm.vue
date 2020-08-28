@@ -53,6 +53,10 @@ export default {
      * Update the file list and show newly uploaded files.
      */
     appendFileToList(error, uploadedFile) {
+      if (error) {
+        return
+      }
+
       // Get the uploaded file from the queue and append to DOM
       let fileToAppend = this.fileQueue.find(file => {
         return file.uuid === uploadedFile.serverId
