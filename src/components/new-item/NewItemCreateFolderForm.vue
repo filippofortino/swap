@@ -30,65 +30,67 @@
       </button>
     </div>
     <div>
-      <label for="folder-name" class="block text-sm leading-5 font-medium text-gray-700"
-        >Folder name</label
-      >
-      <div class="mt-1 relative rounded-md shadow-sm">
-        <div
-          v-show="errorMessage"
-          class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+      <form @submit.prevent="createFolder()">
+        <label for="folder-name" class="block text-sm leading-5 font-medium text-gray-700"
+          >Folder name</label
         >
-          <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-        </div>
-        <input
-          v-model="folderName"
-          ref="input"
-          id="folder-name"
-          class="form-input block w-full sm:text-sm sm:leading-5 pr-10"
-          :class="{
-            'text-red-900 border-red-500 focus:border-red-500 focus:shadow-outline-red': errorMessage,
-          }"
-          placeholder="Type the folder name here"
-          maxlength="80"
-        />
-      </div>
-      <p v-show="errorMessage" class="mt-1 text-sm leading-5 font-medium text-red-500">
-        {{ errorMessage }}
-      </p>
-
-      <div class="pt-3 sm:flex sm:flex-row-reverse">
-        <span class="flex w-full rounded-md shadow-sm sm:w-auto">
-          <button
-            @click="isButtonDisabled || createFolder()"
-            type="button"
-            class="relative inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5"
-            :class="{
-              'opacity-50 cursor-not-allowed': isButtonDisabled,
-              'pointer-events-none': loading,
-            }"
-            :disabled="isButtonDisabled"
+        <div class="mt-1 relative rounded-md shadow-sm">
+          <div
+            v-show="errorMessage"
+            class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
           >
-            <span :class="{ 'opacity-0': loading }">Create</span>
-            <svg
-              v-show="loading"
-              class="absolute top-1/2 right-1/2 -mt-3 -mr-3 h-6 w-6 animate-spin-bezier text-white opacity-75"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 50 50"
-            >
+            <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
               <path
-                d="M43.935 25.145c0-10.318-8.364-18.683-18.683-18.683-10.318 0-18.683 8.365-18.683 18.683h4.068c0-8.071 6.543-14.615 14.615-14.615s14.615 6.543 14.615 14.615h4.068z"
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                clip-rule="evenodd"
               ></path>
             </svg>
-          </button>
-        </span>
-      </div>
+          </div>
+          <input
+            v-model="folderName"
+            ref="input"
+            id="folder-name"
+            class="form-input block w-full sm:text-sm sm:leading-5 pr-10"
+            :class="{
+              'text-red-900 border-red-500 focus:border-red-500 focus:shadow-outline-red': errorMessage,
+            }"
+            placeholder="Type the folder name here"
+            maxlength="80"
+          />
+        </div>
+        <p v-show="errorMessage" class="mt-1 text-sm leading-5 font-medium text-red-500">
+          {{ errorMessage }}
+        </p>
+
+        <div class="pt-3 sm:flex sm:flex-row-reverse">
+          <span class="flex w-full rounded-md shadow-sm sm:w-auto">
+            <button
+              @click="isButtonDisabled || createFolder()"
+              type="button"
+              class="relative inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5"
+              :class="{
+                'opacity-50 cursor-not-allowed': isButtonDisabled,
+                'pointer-events-none': loading,
+              }"
+              :disabled="isButtonDisabled"
+            >
+              <span :class="{ 'opacity-0': loading }">Create</span>
+              <svg
+                v-show="loading"
+                class="absolute top-1/2 right-1/2 -mt-3 -mr-3 h-6 w-6 animate-spin-bezier text-white opacity-75"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 50 50"
+              >
+                <path
+                  d="M43.935 25.145c0-10.318-8.364-18.683-18.683-18.683-10.318 0-18.683 8.365-18.683 18.683h4.068c0-8.071 6.543-14.615 14.615-14.615s14.615 6.543 14.615 14.615h4.068z"
+                ></path>
+              </svg>
+            </button>
+          </span>
+        </div>
+      </form>
     </div>
   </div>
 </template>
