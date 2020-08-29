@@ -21,7 +21,7 @@
       </div>
     </router-link>
     <div
-      class="absolute flex items-center top-0 right-0 h-full opacity-0 z-50 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200"
+      class="absolute flex items-center top-0 right-0 h-full opacity-0 z-10 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200"
     >
       <Dropdown>
         <button

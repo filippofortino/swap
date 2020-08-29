@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="z-20">
     <NewItemButton
       v-show="showButton && !isPanelOpen && currentFolder"
       @open-button="isPanelOpen = true"
