@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   variants: {
-    opacity: ['responsive', 'hover', 'focus', 'group-hover', 'focus-within'],
+    opacity: ['responsive', 'hover', 'focus', 'group-hover'],
   },
   plugins: [require('@tailwindcss/ui')],
 }
