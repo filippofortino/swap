@@ -54,12 +54,7 @@
           tag="div"
           class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
         >
-          <FolderItem
-            class="transition-all duration-500"
-            v-for="folder in folders"
-            :key="folder.id"
-            :folder="folder"
-          />
+          <FolderItem v-for="folder in folders" :key="folder.id" :folder="folder" />
         </transition-group>
         <!-- </div> -->
       </div>
