@@ -27,7 +27,7 @@
         </div>
       </router-link>
       <div
-        class="absolute flex items-center top-0 right-0 h-full rounded-r-md bg-gradient-to-r from-transparent to-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        class="absolute flex items-center top-0 right-0 h-full rounded-r-md bg-gradient-to-r from-transparent to-gray-200 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200"
         :class="{ 'opacity-100': isSelected }"
       >
         <button

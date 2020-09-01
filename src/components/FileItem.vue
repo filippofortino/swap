@@ -43,7 +43,7 @@
       </button>
 
       <div
-        class="absolute flex justify-end top-0 right-0 w-full rounded-t-md bg-gradient-to-b from-gray-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+        class="absolute flex justify-end top-0 right-0 w-full rounded-t-md bg-gradient-to-b from-gray-500 to-transparent opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200"
         :class="{ 'opacity-100': isSelected }"
       >
         <button
