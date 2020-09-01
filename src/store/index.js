@@ -25,7 +25,7 @@ export default new Vuex.Store({
     },
     revertUploadedFile(state, filepondId) {
       let foundIndex = state.items.folder.files.findIndex(file => file.filepondId === filepondId)
-      // If the element actually exists in the arrayk
+      // If the element actually exists in the array
       if (foundIndex > -1) {
         state.items.folder.files.splice(foundIndex, 1)
       }
