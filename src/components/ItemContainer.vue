@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SelectedItemsActionsBar :items="selectedItems" @unselect-all="selectedItems = []" />
     <div v-if="loading" class="py-6">
       <svg
         class="animate-spin-bezier h-10 w-10 mx-auto text-indigo-600"
@@ -54,7 +55,14 @@
           tag="div"
           class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
         >
-          <FolderItem v-for="folder in folders" :key="folder.id" :folder="folder" />
+          <FolderItem
+            v-for="folder in folders"
+            :key="folder.id"
+            :folder="folder"
+            :selected="isItemSelected(folder)"
+            @item-selected="selectItem($event)"
+            @item-unselected="unselectItem($event)"
+          />
         </transition-group>
         <!-- </div> -->
       </div>
@@ -108,6 +116,7 @@
 import axios from 'axios'
 import FileItem from './FileItem'
 import FolderItem from './FolderItem'
+import SelectedItemsActionsBar from './SelectedItemsActionsBar'
 
 export default {
   name: 'ItemContainer',
@@ -115,6 +124,7 @@ export default {
     return {
       loading: false,
       error: false,
+      selectedItems: [],
     }
   },
   computed: {
@@ -128,6 +138,7 @@ export default {
   components: {
     FileItem,
     FolderItem,
+    SelectedItemsActionsBar,
   },
   methods: {
     async getItems() {
@@ -147,6 +158,20 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+    selectItem(item) {
+      this.selectedItems.push(item)
+    },
+    unselectItem(item) {
+      // let foundIndex = this.selectedItems.findIndex(sItem => sItem.id === item.id)
+      // // If the element actually exists in the array
+      // if (foundIndex > -1) {
+      //   this.selectedItems.splice(foundIndex, 1)
+      // }
+      this.selectedItems = this.selectedItems.filter(sItem => sItem.id !== item.id)
+    },
+    isItemSelected(item) {
+      return this.selectedItems.filter(sItem => sItem.id === item.id).length > 0
     },
   },
   created() {

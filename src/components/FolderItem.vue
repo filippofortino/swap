@@ -1,9 +1,9 @@
 <template>
   <div
-    class="group rounded-lg shadow-sm border-2 bg-white"
-    :class="{ ' border-indigo-600': isSelected, 'border-transparent': !isSelected }"
+    class="group rounded-lg shadow-sm border-2"
+    :class="{ ' border-indigo-600': selected, 'border-transparent': !selected }"
   >
-    <div class="relative border rounded-md">
+    <div class="relative bg-white border rounded-md">
       <router-link
         :to="`/folder/${folder.uuid}`"
         class="block w-full h-full rounded-md shadow focus:outline-none focus:shadow-outline-indigo select-none"
@@ -28,15 +28,15 @@
       </router-link>
       <div
         class="absolute flex items-center top-0 right-0 h-full rounded-r-md bg-gradient-to-r from-transparent to-gray-200 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200"
-        :class="{ 'opacity-100': isSelected }"
+        :class="{ 'opacity-100': selected }"
       >
         <button
           @click="toggleSelected()"
           type="button"
           class="mr-1 ml-3 transition-colors duration-200 focus:outline-none"
           :class="{
-            'text-indigo-600': isSelected,
-            'text-gray-400 hover:text-gray-500 focus:text-gray-500': !isSelected,
+            'text-indigo-600': selected,
+            'text-gray-400 hover:text-gray-500 focus:text-gray-500': !selected,
           }"
         >
           <svg
@@ -62,15 +62,14 @@
 <script>
 export default {
   name: 'FolderItem',
-  props: ['folder'],
-  data() {
-    return {
-      isSelected: false,
-    }
-  },
+  props: ['folder', 'selected'],
   methods: {
     toggleSelected() {
-      this.isSelected = !this.isSelected
+      if (this.selected) {
+        this.$emit('item-unselected', this.folder)
+      } else {
+        this.$emit('item-selected', this.folder)
+      }
     },
   },
 }
