@@ -53,6 +53,7 @@
               <button
                 type="button"
                 class="px-2 py-2 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+                @click="deleteItems()"
               >
                 <svg
                   class="h-6 w-6 text-gray-500"
@@ -97,12 +98,42 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'SelectedItemsActionsBar',
   props: ['items'],
   computed: {
     itemsCount() {
       return this.items.files.length + this.items.folders.length
+    },
+  },
+  methods: {
+    async deleteItems() {
+      try {
+        if (this.items.files.length) await this.deleteAction('files')
+        if (this.items.folders.length) await this.deleteAction('folders')
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    async deleteAction(type) {
+      let ids = []
+      this.items[type].forEach(item => {
+        ids.push(item.id)
+      })
+
+      try {
+        const response = await axios.delete(`https://api.swap.test/${type}/delete`, {
+          data: {
+            ids: ids,
+          },
+        })
+
+        console.log('response', response)
+      } catch (e) {
+        console.log(e)
+      }
     },
   },
 }
