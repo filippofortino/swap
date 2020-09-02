@@ -1,6 +1,10 @@
 <template>
   <div>
-    <SelectedItemsActionsBar :items="selectedItems" @unselect-all="selectedItems = []" />
+    <SelectedItemsActionsBar
+      v-if="itemsAreSelected"
+      :items="selectedItems"
+      @unselect-all="unselectAllItems()"
+    />
     <div v-if="loading" class="py-6">
       <svg
         class="animate-spin-bezier h-10 w-10 mx-auto text-indigo-600"
@@ -59,9 +63,10 @@
             v-for="folder in folders"
             :key="folder.id"
             :folder="folder"
-            :selected="isItemSelected(folder)"
-            @item-selected="selectItem($event)"
-            @item-unselected="unselectItem($event)"
+            :selected="isItemSelected(folder, 'folders')"
+            :force-select="itemsAreSelected"
+            @item-selected="selectItem($event, 'folders')"
+            @item-unselected="unselectItem($event, 'folders')"
           />
         </transition-group>
         <!-- </div> -->
@@ -78,7 +83,15 @@
           tag="div"
           class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
         >
-          <FileItem v-for="file in files" :key="file.id" :file="file" />
+          <FileItem
+            v-for="file in files"
+            :key="file.id"
+            :file="file"
+            :selected="isItemSelected(file, 'files')"
+            :force-select="itemsAreSelected"
+            @item-selected="selectItem($event, 'files')"
+            @item-unselected="unselectItem($event, 'files')"
+          />
         </transition-group>
       </div>
     </div>
@@ -124,8 +137,16 @@ export default {
     return {
       loading: false,
       error: false,
-      selectedItems: [],
+      selectedItems: {
+        files: [],
+        folders: [],
+      },
     }
+  },
+  components: {
+    FileItem,
+    FolderItem,
+    SelectedItemsActionsBar,
   },
   computed: {
     files() {
@@ -134,11 +155,9 @@ export default {
     folders() {
       return this.$store.state.items.folder.folders
     },
-  },
-  components: {
-    FileItem,
-    FolderItem,
-    SelectedItemsActionsBar,
+    itemsAreSelected() {
+      return this.selectedItems.files.length || this.selectedItems.folders.length
+    },
   },
   methods: {
     async getItems() {
@@ -159,23 +178,21 @@ export default {
         this.loading = false
       }
     },
-    selectItem(item) {
-      this.selectedItems.push(item)
+    selectItem(item, type) {
+      this.selectedItems[type].push(item)
     },
-    unselectItem(item) {
-      // let foundIndex = this.selectedItems.findIndex(sItem => sItem.id === item.id)
-      // // If the element actually exists in the array
-      // if (foundIndex > -1) {
-      //   this.selectedItems.splice(foundIndex, 1)
-      // }
-      this.selectedItems = this.selectedItems.filter(sItem => sItem.id !== item.id)
+    unselectItem(item, type) {
+      this.selectedItems[type] = this.selectedItems[type].filter(sItem => sItem.id !== item.id)
     },
-    isItemSelected(item) {
-      return this.selectedItems.filter(sItem => sItem.id === item.id).length > 0
+    isItemSelected(item, type) {
+      return this.selectedItems[type].filter(sItem => sItem.id === item.id).length > 0
+    },
+    unselectAllItems() {
+      this.selectedItems.files = []
+      this.selectedItems.folders = []
     },
   },
   created() {
-    console.log(this.$route.params.uuid)
     this.getItems()
   },
   watch: {

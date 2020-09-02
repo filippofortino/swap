@@ -55,6 +55,35 @@
           </svg>
         </button>
       </div>
+      <button
+        type="button"
+        v-if="forceSelect"
+        class="absolute group flex justify-end top-0 right-0 h-full w-full cursor-pointer focus:outline-none"
+        @click="toggleSelected()"
+      >
+        <div
+          class="flex items-center h-full rounded-r-md bg-gradient-to-r from-transparent to-gray-200"
+        >
+          <svg
+            class="h-6 w-6 mr-1 ml-3 transition-colors duration-200"
+            :class="{
+              'text-indigo-600': selected,
+              'text-gray-400 group-hover:text-gray-500': !selected,
+            }"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+      </button>
     </div>
   </div>
 </template>
@@ -62,7 +91,7 @@
 <script>
 export default {
   name: 'FolderItem',
-  props: ['folder', 'selected'],
+  props: ['folder', 'selected', 'forceSelect'],
   methods: {
     toggleSelected() {
       if (this.selected) {

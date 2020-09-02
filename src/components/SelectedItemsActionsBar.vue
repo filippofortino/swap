@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items.length" class="fixed top-0 left-0 w-full z-20 pt-6">
+  <div class="fixed top-0 left-0 w-full z-20 pt-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="rounded-b-lg shadow-lg">
         <div class="rounded-lg shadow-xs bg-white">
@@ -26,12 +26,13 @@
                 </svg>
               </button>
               <span class="font-medium leading-4 text-gray-800"
-                >{{ items.length }} items selected</span
+                >{{ itemsCount }} items selected</span
               >
             </div>
             <div class="flex items-center space-x-2">
               <button
                 type="button"
+                v-if="itemsCount === 1"
                 class="px-2 py-2 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
               >
                 <svg
@@ -99,5 +100,10 @@
 export default {
   name: 'SelectedItemsActionsBar',
   props: ['items'],
+  computed: {
+    itemsCount() {
+      return this.items.files.length + this.items.folders.length
+    },
+  },
 }
 </script>
