@@ -30,6 +30,17 @@ export default new Vuex.Store({
         state.items.folder.files.splice(foundIndex, 1)
       }
     },
+    removeDeletedItems(state, items) {
+      items.files.forEach(file => {
+        state.items.folder.files = state.items.folder.files.filter(sFile => sFile.id !== file.id)
+      })
+
+      items.folders.forEach(folder => {
+        state.items.folder.folders = state.items.folder.folders.filter(
+          sFolder => sFolder.id !== folder.id
+        )
+      })
+    },
   },
   actions: {},
   modules: {},

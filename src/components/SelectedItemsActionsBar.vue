@@ -113,27 +113,26 @@ export default {
       try {
         if (this.items.files.length) await this.deleteAction('files')
         if (this.items.folders.length) await this.deleteAction('folders')
-      } catch (e) {
-        console.log(e)
+
+        this.$store.commit('removeDeletedItems', this.items)
+        this.$emit('unselect-all')
+      } catch (error) {
+        console.log('Error while deleting items', error)
       }
     },
     async deleteAction(type) {
-      let ids = []
+      let items = []
       this.items[type].forEach(item => {
-        ids.push(item.id)
+        items.push(item.id)
       })
 
-      try {
-        const response = await axios.delete(`https://api.swap.test/${type}/delete`, {
-          data: {
-            ids: ids,
-          },
-        })
+      const response = await axios.delete(`https://api.swap.test/${type}/delete`, {
+        data: {
+          items: items,
+        },
+      })
 
-        console.log('response', response)
-      } catch (e) {
-        console.log(e)
-      }
+      return response
     },
   },
 }
