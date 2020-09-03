@@ -169,8 +169,7 @@ export default {
 
         this.$store.commit('updateItems', items.data)
 
-        document.title =
-          items.data.folder.id !== 1 ? `${items.data.folder.name} | Swap` : 'Home | Swap'
+        document.title = `${items.data.folder.name} | Swap`
       } catch (e) {
         console.error(e)
         this.error = true
