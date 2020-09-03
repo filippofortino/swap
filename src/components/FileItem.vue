@@ -35,7 +35,7 @@
             ></path>
           </svg>
         </div>
-        <div class="p-3 bg-white truncate sm:p-4">
+        <div class="p-3 bg-white text-left truncate sm:p-4">
           <span class="text-xs leading-tight font-semibold text-gray-600 sm:text-sm">
             {{ file.name }}
           </span>
