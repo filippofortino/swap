@@ -94,10 +94,12 @@
         </div>
       </div>
     </div>
+    <Modal />
   </div>
 </template>
 
 <script>
+import Modal from './Modal.vue'
 import axios from 'axios'
 
 export default {
@@ -134,6 +136,9 @@ export default {
 
       return response
     },
+  },
+  components: {
+    Modal,
   },
 }
 </script>
