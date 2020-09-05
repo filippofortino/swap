@@ -1,9 +1,11 @@
 <template>
   <div>
+    <Modal v-if="renameModalIsOpen" :item="selectedItem" />
     <SelectedItemsActionsBar
       v-if="itemsAreSelected"
       :items="selectedItems"
       @unselect-all="unselectAllItems()"
+      @rename-item="renameModalIsOpen = true"
     />
     <div v-if="loading" class="py-6">
       <svg
@@ -127,6 +129,7 @@
 
 <script>
 import axios from 'axios'
+import Modal from './Modal.vue'
 import FileItem from './FileItem'
 import FolderItem from './FolderItem'
 import SelectedItemsActionsBar from './SelectedItemsActionsBar'
@@ -141,12 +144,14 @@ export default {
         files: [],
         folders: [],
       },
+      renameModalIsOpen: false,
     }
   },
   components: {
     FileItem,
     FolderItem,
     SelectedItemsActionsBar,
+    Modal,
   },
   computed: {
     files() {
@@ -157,6 +162,23 @@ export default {
     },
     itemsAreSelected() {
       return this.selectedItems.files.length || this.selectedItems.folders.length
+    },
+    /**
+     * The currently selected item.
+     *
+     * If only one item is selected, return that item,
+     * else if selected items are more than one or none, return null
+     */
+    selectedItem() {
+      if (this.selectedItems.files.length === 1) {
+        return { item: this.selectedItems.files[0], type: 'files' }
+      }
+
+      if (this.selectedItems.folders.length === 1) {
+        return { item: this.selectedItems.folders[0], type: 'folders' }
+      }
+
+      return null
     },
   },
   methods: {

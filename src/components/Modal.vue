@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed z-10 inset-0 overflow-y-auto">
+  <div class="fixed z-20 inset-0 overflow-y-auto">
     <div
       class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
     >
@@ -64,6 +64,7 @@
                   You can type the new name in the form below to rename the selected item.
                 </p>
                 <input
+                  v-model="newItemName"
                   ref="input"
                   id="folder-name"
                   class="form-input w-full sm:text-sm sm:leading-5 pr-10"
@@ -98,7 +99,33 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Modal',
+  props: ['item'],
+  data() {
+    return {
+      newItemName: this.item.item.name,
+    }
+  },
+  methods: {
+    async rename() {
+      const { item, type } = this.item
+
+      const response = await axios.patch(`https://api.swap.test/${type}/${item.id}`, {
+        folder_id: item.folder_id,
+        name: this.newItemName,
+      })
+
+      return response
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.input.focus()
+      this.$refs.input.select()
+    })
+  },
 }
 </script>
