@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-if="renameModalIsOpen" :item="selectedItem" />
+    <Modal v-if="renameModalIsOpen" :item="selectedItem" @close="renameModalIsOpen = false" />
     <SelectedItemsActionsBar
       v-if="itemsAreSelected"
       :items="selectedItems"
