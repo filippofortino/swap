@@ -2,7 +2,7 @@
   <div>
     <Modal v-if="renameModalIsOpen" :item="selectedItem" @close="renameModalIsOpen = false" />
     <SelectedItemsActionsBar
-      v-if="itemsAreSelected"
+      v-show="itemsAreSelected"
       :items="selectedItems"
       @unselect-all="unselectAllItems()"
       @rename-item="renameModalIsOpen = true"
