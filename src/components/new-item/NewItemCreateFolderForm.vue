@@ -43,31 +43,14 @@
         />
 
         <div class="pt-3 sm:flex sm:flex-row-reverse">
-          <span class="flex w-full rounded-md shadow-sm sm:w-auto">
-            <button
-              @click="isButtonDisabled || createFolder()"
-              type="button"
-              class="relative inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5"
-              :class="{
-                'opacity-50 cursor-not-allowed': isButtonDisabled,
-                'pointer-events-none': loading,
-              }"
-              :disabled="isButtonDisabled"
-            >
-              <span :class="{ 'opacity-0': loading }">Create</span>
-              <svg
-                v-show="loading"
-                class="absolute top-1/2 right-1/2 -mt-3 -mr-3 h-6 w-6 animate-spin-bezier text-white opacity-75"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 50 50"
-              >
-                <path
-                  d="M43.935 25.145c0-10.318-8.364-18.683-18.683-18.683-10.318 0-18.683 8.365-18.683 18.683h4.068c0-8.071 6.543-14.615 14.615-14.615s14.615 6.543 14.615 14.615h4.068z"
-                ></path>
-              </svg>
-            </button>
-          </span>
+          <Button
+            nativeType="submit"
+            :disabled="isButtonDisabled"
+            :loading="loading"
+            @click="isButtonDisabled || createFolder()"
+          >
+            Create
+          </Button>
         </div>
       </form>
     </div>
@@ -77,6 +60,7 @@
 <script>
 import axios from 'axios'
 import Input from '../Input'
+import Button from '../Button'
 
 export default {
   name: 'NewItemCreateFolderForm',
@@ -121,6 +105,7 @@ export default {
   },
   components: {
     Input,
+    Button,
   },
 }
 </script>
