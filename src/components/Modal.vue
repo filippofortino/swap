@@ -104,7 +104,7 @@
             </div>
           </div>
           <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-            <span class="sm:ml-3">
+            <div class="sm:ml-3">
               <Button
                 type="blue"
                 nativeType="submit"
@@ -114,12 +114,12 @@
               >
                 Rename
               </Button>
-            </span>
-            <span class="mt-3 sm:mt-0">
+            </div>
+            <div class="mt-3 sm:mt-0">
               <Button type="white" @click="$emit('close')">
                 Cancel
               </Button>
-            </span>
+            </div>
           </div>
         </div>
       </transition>
