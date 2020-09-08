@@ -91,7 +91,6 @@
                       label="Item name"
                       :label-sr-only="true"
                       placeholder="New item name"
-                      maxlength="80"
                       v-model="newItemName"
                       :error="errorMessage ? true : false"
                       :message="errorMessage || ''"
