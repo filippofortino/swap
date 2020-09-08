@@ -41,6 +41,10 @@ export default new Vuex.Store({
         )
       })
     },
+    renameItem(state, { itemId, newName, itemType }) {
+      let index = state.items.folder[itemType].findIndex(item => item.id === itemId)
+      state.items.folder[itemType][index].name = newName
+    },
   },
   actions: {},
   modules: {},

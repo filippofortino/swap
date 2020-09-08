@@ -152,7 +152,11 @@ export default {
           name: this.newItemName,
         })
 
-        // TODO: Rename item in Vuex store
+        this.$store.commit('renameItem', {
+          itemId: item.id,
+          newName: this.newItemName,
+          itemType: type,
+        })
 
         this.$emit('close')
       } catch (e) {
