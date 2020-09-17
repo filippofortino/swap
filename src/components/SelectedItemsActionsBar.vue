@@ -82,6 +82,7 @@
                 <button
                   type="button"
                   class="px-2 py-2 truncate rounded leading-tight tracking-wide text-gray-500 font-semibold hover:bg-gray-200 focus:outline-none focus:bg-gray-200"
+                  @click="downloadItems()"
                 >
                   <svg
                     class="h-6 w-6 text-gray-500"
@@ -143,6 +144,35 @@ export default {
       })
 
       return response
+    },
+    async downloadItems() {
+      let items = {
+        files: [],
+        folders: [],
+      }
+      console.log(this.items.files)
+      this.items.files.forEach(file => {
+        items.files.push(file.id)
+      })
+      this.items.folders.forEach(folder => {
+        items.folders.push(folder.id)
+      })
+
+      console.log(items)
+
+      try {
+        const response = await axios.post(`https://api.swap.test/items/download`, {
+          data: {
+            files: items.files,
+            folders: items.folders,
+          },
+        })
+
+        console.log(response)
+        // this.$emit('unselect-all')
+      } catch (error) {
+        console.log('Error', error)
+      }
     },
   },
 }
