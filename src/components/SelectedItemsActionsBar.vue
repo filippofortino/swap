@@ -110,6 +110,8 @@
 
 <script>
 import axios from 'axios'
+// import fileDownload from 'js-file-download'
+import AxiosStream from 'axios-stream'
 
 export default {
   name: 'SelectedItemsActionsBar',
@@ -146,29 +148,47 @@ export default {
       return response
     },
     async downloadItems() {
-      let items = {
-        files: [],
-        folders: [],
-      }
-      console.log(this.items.files)
-      this.items.files.forEach(file => {
-        items.files.push(file.id)
-      })
-      this.items.folders.forEach(folder => {
-        items.folders.push(folder.id)
-      })
+      // let items = {
+      //   files: [],
+      //   folders: [],
+      // }
+      // console.log(this.items.files)
+      // this.items.files.forEach(file => {
+      //   items.files.push(file.id)
+      // })
+      // this.items.folders.forEach(folder => {
+      //   items.folders.push(folder.id)
+      // })
 
-      console.log(items)
+      const files = this.items.files.map(file => file.id)
+      const folders = this.items.folders.map(folder => folder.id)
+
+      // console.log('files:', files)
+      // console.log('folders:', folders)
 
       try {
-        const response = await axios.post(`https://api.swap.test/items/download`, {
-          data: {
-            files: items.files,
-            folders: items.folders,
-          },
-        })
+        // const { data } = await axios.post(
+        //   `https://api.swap.test/items/download`,
+        //   {
+        //     files: files,
+        //     folders: folders,
+        //   },
+        //   { responseType: 'blob' }
+        // )
 
-        console.log(response)
+        // fileDownload(data, 'test.zip')
+        const config = {
+          method: 'post',
+          url: 'https://api.swap.test/items/download',
+          data: {
+            files: files,
+            folders: folders,
+          },
+        }
+
+        AxiosStream.download('ziptest', 'zip', config)
+
+        // console.log(response)
         // this.$emit('unselect-all')
       } catch (error) {
         console.log('Error', error)
