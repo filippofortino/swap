@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@tailwindcss/ui": "^0.4.0",
+    "axios-stream": "^1.0.17",
     "core-js": "^3.6.5",
     "filepond": "^4.20.1",
     "filepond-plugin-image-preview": "^4.6.4",
+    "js-file-download": "^0.4.12",
     "tailwindcss": "^1.7.6",
     "vue": "^2.6.12",
     "vue-filepond": "^6.0.2",
