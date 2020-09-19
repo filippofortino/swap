@@ -110,8 +110,8 @@
 
 <script>
 import axios from 'axios'
-// import fileDownload from 'js-file-download'
-import AxiosStream from 'axios-stream'
+import mime from 'mime-types'
+import fileDownload from 'js-file-download'
 
 export default {
   name: 'SelectedItemsActionsBar',
@@ -148,48 +148,29 @@ export default {
       return response
     },
     async downloadItems() {
-      // let items = {
-      //   files: [],
-      //   folders: [],
-      // }
-      // console.log(this.items.files)
-      // this.items.files.forEach(file => {
-      //   items.files.push(file.id)
-      // })
-      // this.items.folders.forEach(folder => {
-      //   items.folders.push(folder.id)
-      // })
-
       const files = this.items.files.map(file => file.id)
       const folders = this.items.folders.map(folder => folder.id)
 
-      // console.log('files:', files)
-      // console.log('folders:', folders)
-
       try {
-        // const { data } = await axios.post(
-        //   `https://api.swap.test/items/download`,
-        //   {
-        //     files: files,
-        //     folders: folders,
-        //   },
-        //   { responseType: 'blob' }
-        // )
-
-        // fileDownload(data, 'test.zip')
-        const config = {
-          method: 'post',
-          url: 'https://api.swap.test/items/download',
-          data: {
+        const { data, headers } = await axios.post(
+          `https://api.swap.test/items/download`,
+          {
             files: files,
             folders: folders,
           },
+          { responseType: 'blob' }
+        )
+
+        let filename = `swap-download--${new Date().getTime()}.zip`
+
+        // Replace filename with item name if only one file is being downloaded
+        if (files.length === 1 && folders.length === 0) {
+          filename = this.items.files[0].name.replace(/\.[^/.]+$/, '')
+          filename = `${filename}.${mime.extension(headers['content-type'])}`
         }
 
-        AxiosStream.download('ziptest', 'zip', config)
-
-        // console.log(response)
-        // this.$emit('unselect-all')
+        fileDownload(data, filename)
+        this.$emit('unselect-all')
       } catch (error) {
         console.log('Error', error)
       }
