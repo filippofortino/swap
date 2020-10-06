@@ -9,7 +9,7 @@
     />
     <div v-if="loading" class="py-6">
       <svg
-        class="animate-spin-bezier h-10 w-10 mx-auto text-indigo-600"
+        class="animate-spin-bezier h-10 w-10 mx-auto text-red-600"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 50 50"

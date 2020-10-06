@@ -5,7 +5,7 @@
   >
     <button
       type="button"
-      class="block w-full h-full rounded-md focus:outline-none focus:shadow-outline-indigo"
+      class="block w-full h-full rounded-md focus:outline-none focus:shadow-outline-red"
       :title="file.name"
     >
       <!-- If file have a preview image -->
@@ -50,7 +50,7 @@
         type="button"
         class="mt-2 mr-2 mb-4 transition-colors duration-200 focus:outline-none"
         :class="{
-          'text-indigo-600': selected,
+          'text-red-600': selected,
           'text-gray-200 hover:text-white focus:text-white': !selected,
         }"
       >
@@ -82,7 +82,7 @@
         <svg
           class="h-6 w-6 mt-2 mr-2 mb-4 transition-colors duration-200"
           :class="{
-            'text-indigo-600': selected,
+            'text-red-600': selected,
             'text-gray-200 group-hover:text-white': !selected,
           }"
           xmlns="http://www.w3.org/2000/svg"

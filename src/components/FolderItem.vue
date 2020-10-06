@@ -5,7 +5,7 @@
   >
     <router-link
       :to="`/folder/${folder.uuid}`"
-      class="block w-full h-full rounded-md focus:outline-none focus:shadow-outline-indigo select-none"
+      class="block w-full h-full rounded-md focus:outline-none focus:shadow-outline-red select-none"
       :title="folder.name"
     >
       <div class="p-3 sm:p-4">
@@ -32,7 +32,7 @@
         type="button"
         class="mr-1 ml-3 transition-colors duration-200 focus:outline-none"
         :class="{
-          'text-indigo-600': selected,
+          'text-red-600': selected,
           'text-gray-400 hover:text-gray-500 focus:text-gray-500': !selected,
         }"
       >
@@ -65,7 +65,7 @@
         <svg
           class="h-6 w-6 mr-1 ml-3 transition-colors duration-200"
           :class="{
-            'text-indigo-600': selected,
+            'text-red-600': selected,
             'text-gray-400 group-hover:text-gray-500': !selected,
           }"
           xmlns="http://www.w3.org/2000/svg"

@@ -14,7 +14,7 @@ module.exports = {
         'spin-bezier': 'spin 0.7s cubic-bezier(0, 0, 0.30, 0.70) infinite',
       },
       boxShadow: {
-        selected: "0 0 0 2px theme('colors.indigo.600')",
+        selected: "0 0 0 2px theme('colors.red.600')",
       },
     },
   },
