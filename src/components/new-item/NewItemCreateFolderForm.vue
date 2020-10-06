@@ -43,7 +43,7 @@
         />
 
         <div class="pt-3 sm:flex sm:flex-row-reverse">
-          <Button nativeType="submit" :disabled="isButtonDisabled" :loading="loading">
+          <Button nativeType="submit" type="blue" :disabled="isButtonDisabled" :loading="loading">
             Create
           </Button>
         </div>

@@ -9,7 +9,7 @@
   >
     <button
       @click="$emit('open-button')"
-      class="fixed bottom-8 right-5 md:right-8 rounded-full bg-indigo-600 shadow-lg hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150"
+      class="fixed bottom-8 right-5 md:right-8 rounded-full bg-red-600 shadow-lg hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700 transition ease-in-out duration-150"
     >
       <div class="flex items-center p-3 space-x-3 text-white rounded-full shadow-xs md:p-4">
         <svg

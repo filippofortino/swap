@@ -36,7 +36,7 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'indigo',
+      default: 'red',
     },
     nativeType: {
       type: String,
